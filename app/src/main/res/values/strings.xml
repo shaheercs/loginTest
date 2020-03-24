@@ -5,4 +5,6 @@
     <string name="successfully_updated">Successfully updated  your profile picture.</string>
     <string name="failed_updated">Failed to updated  your profile picture. please try again.</string>
     <string name="image_limit">Oops.. this seems the image you selected exceed the memory limit. please reduce the size and try  again.</string>
+    <string name="invalid_credentials">Invalid credentials.please try again.</string>
+    <string name="server_error">Sorry, maintenance time. Please try again later.</string>
 </resources>

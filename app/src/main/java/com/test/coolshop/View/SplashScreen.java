@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.test.coolshop.Setting.SplashViewModelFactory;
 import com.test.coolshop.viewModel.SplashViewModel;
 
 public class SplashScreen extends AppCompatActivity {
@@ -16,7 +17,7 @@ public class SplashScreen extends AppCompatActivity {
         /**
          * splash Screen viewModel will decide whether auto login should happen or not according to the previous
          */
-        splashViewModel = ViewModelProviders.of(SplashScreen.this).get(SplashViewModel.class);
+        splashViewModel = ViewModelProviders.of(SplashScreen.this,new SplashViewModelFactory(this,"setFactory")).get(SplashViewModel.class);
         splashViewModel.checkUserAlreadyLog();
 
 

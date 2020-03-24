@@ -4,23 +4,28 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
+import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModel;
 
 import com.test.coolshop.Model.LoginRequest;
 import com.test.coolshop.Model.LoginResponse;
+import com.test.coolshop.R;
 import com.test.coolshop.Repository.UserLoginRQT;
 import com.test.coolshop.Setting.Utils;
 import com.test.coolshop.View.ProfileActivity;
 
+import static com.test.coolshop.Setting.Utils.showSnackbar;
 import static com.test.coolshop.Setting.Utils.token;
 
-public class LoginViewModel extends AndroidViewModel {
+public class LoginViewModel extends ViewModel {
 
     public String emailAddress;
     public String password;
@@ -29,17 +34,16 @@ public class LoginViewModel extends AndroidViewModel {
     private Handler handler = new Handler();
     private Runnable input_finish_checker;
     private String message = "";
-    private Context context;
-    private MutableLiveData<String> error = new MutableLiveData<>();
+    private FragmentActivity context;
     private UserLoginRQT userLoginRQT = new UserLoginRQT();
     private LoginRequest loginRequest;
-    private MutableLiveData<LoginResponse> userData = new MutableLiveData<>();
+    private View rootView;
 
-    public LoginViewModel(@NonNull Application application) {
-        super(application);
+    public LoginViewModel(FragmentActivity application, View rootView) {
         context = application;
-
+        this.rootView = rootView;
     }
+
 
     public void startEditTextDelayer() {
         input_finish_checker = new Runnable() {
@@ -47,18 +51,15 @@ public class LoginViewModel extends AndroidViewModel {
                 if (System.currentTimeMillis() > (last_text_edit + delay - 500)) {
                     handler.removeCallbacks(input_finish_checker);
                     if (message.equalsIgnoreCase("email") && !validateEmail()) {
-                        error.setValue(message);
+                        showSnackbar(rootView, context.getString(R.string.email_error_warning));
                     } else if (message.equalsIgnoreCase("password") && !validatePassword()) {
-                        error.setValue(message);
+                        showSnackbar(rootView, context.getString(R.string.password_error_warning));
                     }
                 }
             }
         };
     }
 
-    public LiveData<String> errorMessage() {
-        return error;
-    }
 
 
     private boolean validateEmail() {
@@ -104,20 +105,24 @@ public class LoginViewModel extends AndroidViewModel {
                          * saving the userId and token
                          * saving the email and password for auto login
                          */
-                        token=loginResponse.getToken();
-                        Utils.saveSharedSetting(context,"userId",loginResponse.getUserid());
-                        Utils.saveSharedSetting(context,"email",loginRequest.getEmail());
-                        Utils.saveSharedSetting(context,"password",loginRequest.getPassword());
+                        token = loginResponse.getToken();
+                        Utils.saveSharedSetting(context, "userId", loginResponse.getUserid());
+                        Utils.saveSharedSetting(context, "email", loginRequest.getEmail());
+                        Utils.saveSharedSetting(context, "password", loginRequest.getPassword());
                         /**
                          * navigating to profile Page
                          */
                         Intent intent = new Intent(context, ProfileActivity.class);
                         context.startActivity(intent);
+                    } else {
+                        Utils.showSnackbar(rootView, context.getString(R.string.server_error));
                     }
                 }
             });
+        } else {
+            Utils.showSnackbar(rootView, context.getString(R.string.invalid_credentials));
+            // nextPage();
         }
-        nextPage();
     }
 
     //Todo remove this method
