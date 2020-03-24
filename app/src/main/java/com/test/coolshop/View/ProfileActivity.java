@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,6 +23,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.test.coolshop.Model.UserDetailsResponse;
 import com.test.coolshop.R;
 import com.test.coolshop.Setting.Utils;
 import com.test.coolshop.databinding.ActivityProfileBindingImpl;
@@ -45,18 +47,20 @@ public class ProfileActivity extends AppCompatActivity {
         profileViewModel = ViewModelProviders.of(this).get(ProfileViewModel.class);
         activityProfileBinding.setProfile(profileViewModel);
         userId = Utils.readSharedSetting(this, "userID", "");
-//        if (userId != null) {
-//            profileViewModel.userInfo(userId).observe(this, new Observer<UserDetailsResponse>() {
-//                @Override
-//                public void onChanged(UserDetailsResponse userDetailsResponse) {
-//                    if (userDetailsResponse != null) {
-//                        profileImage(userDetailsResponse.getAvatar_url(), activityProfileBinding.img);
-//                        activityProfileBinding.useremail.setText(userDetailsResponse.getEmail());
-//                    }
-//                }
-//            });
-//        }
-          profileImage("sdsd",activityProfileBinding.img);
+        /**
+         * we need check empty check too in this if condition
+         */
+        if (userId != null) {
+            profileViewModel.userInfo(userId).observe(this, new Observer<UserDetailsResponse>() {
+                @Override
+                public void onChanged(UserDetailsResponse userDetailsResponse) {
+                    if (userDetailsResponse != null) {
+                        profileImage(userDetailsResponse.getAvatar_url(), activityProfileBinding.img);
+                        activityProfileBinding.useremail.setText(userDetailsResponse.getEmail());
+                    }
+                }
+            });
+        }
     }
 
     /**
@@ -106,7 +110,7 @@ public class ProfileActivity extends AppCompatActivity {
                     bitmap = getScaledBitmap(result.getUri());
                     if (bitmap != null && bitmap.getByteCount() < MB) {
                         activityProfileBinding.img.setImageBitmap(bitmap);
-                       // updateImage(bitmap);
+                        updateImage(bitmap);
                     } else {
                         Utils.showSnackbar(activityProfileBinding.getRoot(), getString(R.string.image_limit));
                     }
@@ -115,6 +119,10 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     *update image to middleware
+     */
+
     private void updateImage(Bitmap bitmap) {
         profileViewModel.uploadImage(userId, convertBase64(bitmap)).observe(this, new Observer<String>() {
             @Override
@@ -122,6 +130,9 @@ public class ProfileActivity extends AppCompatActivity {
                 if (data != null && !data.equals("")) {
                     Utils.showSnackbar(activityProfileBinding.getRoot(), getString(R.string.successfully_updated));
                 } else {
+                    //TODO  need to remove the unComment this line and toast message . since we not API integrated
+                    //activityProfileBinding.img.setImageResource(R.drawable.ic_dummy_user);
+                    Toast.makeText(ProfileActivity.this, "since we not API integrated,just setting image ", Toast.LENGTH_SHORT).show();
                     Utils.showSnackbar(activityProfileBinding.getRoot(), getString(R.string.failed_updated));
                 }
             }

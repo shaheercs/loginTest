@@ -29,6 +29,7 @@ public class UserLoginRQT {
                     userData.setValue(null);
                 }
             }
+
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
                 userData.setValue(null);

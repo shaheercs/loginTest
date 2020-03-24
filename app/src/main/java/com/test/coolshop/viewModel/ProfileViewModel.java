@@ -12,6 +12,7 @@ public class ProfileViewModel extends ViewModel {
     private UploadProfileIMG uploadProfileIMG = new UploadProfileIMG();
     private GetUserInfo getUserInfo = new GetUserInfo();
 
+
     public LiveData<UserDetailsResponse> userInfo(String UserId) {
         return getUserInfo.getUserImageUrl(UserId);
     }
