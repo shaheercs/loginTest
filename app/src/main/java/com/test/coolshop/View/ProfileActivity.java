@@ -57,6 +57,7 @@ public class ProfileActivity extends AppCompatActivity {
                     if (userDetailsResponse != null) {
                         profileImage(userDetailsResponse.getAvatar_url(), activityProfileBinding.img);
                         activityProfileBinding.useremail.setText(userDetailsResponse.getEmail());
+                        activityProfileBinding.password.setText(Utils.readSharedSetting(ProfileActivity.this,"password",""));
                     }
                 }
             });
