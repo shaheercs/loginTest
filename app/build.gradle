@@ -1,0 +1,59 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+    defaultConfig {
+        applicationId "com.test.coolshop"
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    dataBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+    implementation 'com.google.android.material:material:1.1.0'
+    implementation "android.arch.lifecycle:extensions:'1.1.0'"
+
+    //gson
+    implementation 'com.google.code.gson:gson:2.8.2'
+    // Network Call Library
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    // Retrofit Scalars Converter
+    implementation 'com.squareup.retrofit2:converter-scalars:2.3.0'
+    //circle image view
+    implementation 'com.mikhaellopez:circularimageview:3.2.0'
+    implementation 'de.hdodenhof:circleimageview:3.0.0'
+    //Glide - image loader library
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+    implementation 'com.hbb20:ccp:2.2.4'
+    //Logging Network Calls
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
+    //Image cropping
+    implementation 'com.theartofdev.edmodo:android-image-cropper:2.7.0'
+    //Glide - image loader library
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+    implementation 'com.hbb20:ccp:2.2.4'
+    //circle shape crop
+    implementation 'com.mikhaellopez:circularimageview:4.2.0'
+}

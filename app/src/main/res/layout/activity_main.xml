@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="login"
+            type="com.test.coolshop.viewModel.LoginViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".View.LoginActivity">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/usernameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:textColorHint="@color/black40"
+            app:errorEnabled="true"
+            app:hintTextAppearance="@style/MyHintText"
+            app:layout_constraintBottom_toTopOf="@+id/passwordLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_centerHorizontal="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:hint="Email"
+                android:inputType="textEmailAddress"
+                android:text="@={login.emailAddress}"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:theme="@style/MyEditText"
+                android:onTextChanged="@{login.onEmailTextChanged}"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/passwordLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:textColorHint="@color/black40"
+            app:errorEnabled="true"
+            app:errorTextAppearance="@style/MyErrorText"
+            app:hintTextAppearance="@style/MyHintText"
+            app:layout_constraintBottom_toTopOf="@+id/button2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/usernameLayout"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:passwordToggleDrawable="@drawable/show_hide_eye"
+            app:passwordToggleEnabled="true">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_centerHorizontal="true"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:text="@={login.password}"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:theme="@style/MyEditText"
+                android:onTextChanged="@{login.onPasswordTextChanged}"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="42dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="42dp"
+            android:background="@color/charcoalGrey"
+            android:paddingTop="18dp"
+            android:paddingBottom="18dp"
+            android:text="Login"
+            android:onClick="@{() -> login.login()}"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/passwordLayout"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
