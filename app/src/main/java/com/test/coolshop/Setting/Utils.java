@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.google.android.material.snackbar.Snackbar;
 
 public class Utils {
-    private static final String PREFERENCES_FILE = "materialsample_settings";
+    private static final String PREFERENCES_FILE = "sample_settings";
     public static String token = "";
 
 

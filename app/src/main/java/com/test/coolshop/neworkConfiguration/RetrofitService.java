@@ -17,10 +17,10 @@ public interface RetrofitService {
     @POST("/sessions/new")
     Call<LoginResponse> login(@Body LoginRequest loginRequest);
 
-    @GET("/users/{:userid}")
-    Call<UserDetailsResponse> userInfo(@Path(":userid") String userId);
+    @GET("/users/{userid}")
+    Call<UserDetailsResponse> userInfo(@Path("userid") String userId);
 
-    @POST("/users/{:userid}/avatar")
-    Call<UpdateImageResponse> updateImage(@Path(":userid") String userId,@Body String updateIMageRequest);
+    @POST("/users/{userid}/avatar")
+    Call<UpdateImageResponse> updateImage(@Path("userid") String userId, @Body String updateIMageRequest);
 
 }

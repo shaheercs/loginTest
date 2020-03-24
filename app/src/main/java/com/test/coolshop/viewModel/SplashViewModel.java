@@ -28,6 +28,11 @@ public class SplashViewModel extends ViewModel {
         mContext=application;
     }
 
+    /**
+     * here we are checking we have saved the email and password in local memory?
+     * if YES, we will call login api and got profilePage without showing LoginPage(without calling login api, we only having old token which lead to session time out)
+     * if NO,we will take user to LoginPage
+     */
     public void checkUserAlreadyLog() {
         email = Utils.readSharedSetting(mContext, "email", "");
         password = Utils.readSharedSetting(mContext, "password", "");

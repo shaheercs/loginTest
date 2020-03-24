@@ -13,7 +13,7 @@ import static com.test.coolshop.Setting.Utils.token;
 public class RetrofitInstance {
     private static Retrofit retrofit;
 
-
+//Todo we need to add base url and header changes
 
     public static Retrofit getRetrofitInstance() {
         if (retrofit == null) {
