@@ -18,7 +18,7 @@ public class RetrofitInstance {
     public static Retrofit getRetrofitInstance() {
         if (retrofit == null) {
             retrofit = new retrofit2.Retrofit.Builder()
-                    .baseUrl("<we need to integrate Host here>")
+                    .baseUrl("https://xxx.xxx.com")
                     .client(okHttpClient)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
@@ -35,7 +35,7 @@ public class RetrofitInstance {
 
                     Request.Builder builder = originalRequest.newBuilder().header("Basic-Auth", "Basic SFVCVU46aHVidW5kZXYh")
                             .addHeader("Content-Type", "application/json")
-                            .addHeader("Access-Control-Allow-Origin", "<we need to integrate Host here>")
+                            .addHeader("Access-Control-Allow-Origin", "https://xxx.xxx.com")
                             .addHeader("Authorization", token);
 
                     Request newRequest = builder.build();
